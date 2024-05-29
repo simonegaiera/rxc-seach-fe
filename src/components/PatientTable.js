@@ -5,7 +5,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 import Container from '@mui/material/Container';
 import TablePagination from '@mui/material/TablePagination';
 
-const TableExample = ({ type, search }) => {
+const TableExample = ({ type, search, facility }) => {
     const [data, setData] = useState([]);
 
     // console.log(type, search)
@@ -15,13 +15,13 @@ const TableExample = ({ type, search }) => {
                 if (search.length > 1) {
                     let uri = ''
                     if (type === 'patients') {
-                        uri = `http://localhost:8080/patient/autocomplete/${search}/32.9/-67.0`
+                        uri = `http://localhost:8080/patient/autocomplete/${search}/${facility}`
                     } else {
-                        uri = `http://localhost:8080/prescriber/autocomplete/${search}/32.9/-67.0`
+                        uri = `http://localhost:8080/prescriber/autocomplete/${search}/${facility}`
                     }
 
                     const response = await fetch(uri, {
-                        method: 'POST',
+                        method: 'GET',
                         headers: {
                             'Content-Type': 'application/json'
                         }
@@ -30,7 +30,6 @@ const TableExample = ({ type, search }) => {
                         throw new Error('Network response was not ok');
                     }
                     const data = await response.json();
-                    console.log('hjhkljhjk', data)
                     setData(data);
                 }
             } catch (error) {
@@ -39,7 +38,7 @@ const TableExample = ({ type, search }) => {
         };
 
         fetchData();
-    }, [type, search]);
+    }, [type, search, facility]);
 
     const getCustomStyle = (valueToCheck, highlights) => {
         let isBold = highlights.some(highlight => highlight.path === valueToCheck);
@@ -47,6 +46,7 @@ const TableExample = ({ type, search }) => {
         // console.log(highlights, valueToCheck, isBold)
         return {
             fontWeight: isBold ? 'bold' : 'normal',
+            fontSize: isBold ? '0.975rem' : '0.875rem'
         };
     };
 

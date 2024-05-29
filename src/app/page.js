@@ -9,13 +9,21 @@ import AutocompleteUsers from '@/components/AutocompleteUsers';
 import { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import AutocompleteFacilities from '@/components/AutocompleteFacilities';
 
 
 export default function Home() {
+  const defaultFacility = 7; 
+  const [selectedFacility, setSelectedFacility] = useState(defaultFacility);
+
   const [value, setValue] = useState('');
 
   const handleAutocompleteChange = (newValue) => {
     setValue(newValue);
+  };
+
+  const handleSelectFacility = (value) => {
+    setSelectedFacility(value);
   };
 
   return (
@@ -32,7 +40,8 @@ export default function Home() {
 
         <Grid container columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid  mb={5} container xs={12}>
-            <AutocompleteUsers onChange={handleAutocompleteChange} />
+            <AutocompleteFacilities value={selectedFacility} onSelect={handleSelectFacility} />
+            <AutocompleteUsers onChange={handleAutocompleteChange} facility={selectedFacility} />
           </Grid>
           <Grid container xs={6}>
             <Box width="100%" >
@@ -40,7 +49,7 @@ export default function Home() {
                 Patients
               </Typography>
 
-              <PatientTable type={'patients'} search={value} />
+              <PatientTable type={'patients'} search={value} facility={selectedFacility} />
             </Box>
           </Grid>
           <Grid container spacing={1} xs={6}>
@@ -49,7 +58,7 @@ export default function Home() {
                 Prescribers
               </Typography>
 
-              <PatientTable type={'prescribers'} search={value} />
+              <PatientTable type={'prescribers'} search={value} facility={selectedFacility} />
             </Box>
           </Grid>
         </Grid>

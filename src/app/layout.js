@@ -17,7 +17,7 @@ export default function RootLayout(props) {
           <Grid xs={2} />
           <Grid xs={8}>
             <Grid container>
-              <Grid xs={2}>
+              <Grid xs={1}>
                 <Card sx={{ width: 80 }} style={{ border: "none", boxShadow: "none" }}>
                   <CardMedia
                     sx={{ height: 80 }}
@@ -26,14 +26,18 @@ export default function RootLayout(props) {
                   />
                 </Card>
               </Grid>
-              <Grid xs={8}>
-                <Box width="100%" mt={2}>
-                  <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
+              <Grid xs={10}>
+                <Box mt={3} sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                  <Typography variant="h4" component="h1">
                     Autocomplete Patients and Prescribers
                   </Typography>
                 </Box>
               </Grid>
-              <Grid xs={2}>
+              <Grid xs={1}>
                 <Card sx={{ width: 80 }} style={{ border: "none", boxShadow: "none" }}>
                   <CardMedia
                     sx={{ height: 80 }}
